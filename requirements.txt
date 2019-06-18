@@ -8,6 +8,7 @@ django-taggit==0.24.0
 django-treebeard==4.3
 djangorestframework==3.9.4
 draftjs-exporter==2.1.6
+gunicorn==19.9.0
 html5lib==1.0.1
 idna==2.8
 Pillow==5.4.1

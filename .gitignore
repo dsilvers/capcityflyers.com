@@ -90,7 +90,7 @@ db.sqlite3
 
 npm_modules
 node_modules
-.local
+capcityflyers/settings/local.py
 
 media/
-static/
+static/*

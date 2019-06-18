@@ -20,7 +20,7 @@ class AircraftImageBlock(blocks.StreamBlock):
         (('image'), ImageChooserBlock()),
         (('title'), blocks.CharBlock(max_length=120, blank=True, null=True, default='')),
         (('description'), blocks.RichTextBlock(blank=True, null=True, default='')),
-    ])
+    ], blank=True, null=True)
 
 
 class AircraftPage(Page):

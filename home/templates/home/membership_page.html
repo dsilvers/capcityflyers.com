@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags interchange %}
+
+{% block body_class %}membership-page{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+
+    <div class="hero-section" {% interchange_tag page.hero_image.filename %} style="background-position: 50%; background-repeat: no-repeat; background-size: cover;">
+
+      <div class="hero-section-text">
+        <h1>{{ page.hero_heading }}</h1>
+        <h5>{{ page.hero_subheading}}</h5>
+      </div>
+    </div>
+
+    <div class="grid-x grid-padding-x small-up-1 membership">
+      <div class="cell">
+    {{ page.content|safe }}
+      </div>
+    </div>
+
+
+{% endblock content %}

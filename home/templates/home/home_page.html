@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags interchange %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+
+{% block content %}
+    <div class="hero-section" {% interchange_div page.hero_image.filename %} style="background-position: 50%; background-repeat: no-repeat; background-size: cover;">
+      <div class="hero-section-text">
+        <h1>{{ page.hero_heading }}</h1>
+        <h5>{{ page.hero_subheading}}</h5>
+      </div>
+    </div>
+
+
+    <div class="grid-x grid-padding-x grid-margin-x small-up-1" style="margin: 20px 0 20px;">
+        <div class="cell" style="border: 1px solid #e6e6e6; color: #0a0a0a;">
+            <h3>{{ page.home_heading }}</h3>
+            {{ page.home_content|safe }}
+        </div>
+    </div>
+
+    {% if aircraft_pages %}
+    <div class="grid-x grid-padding-x small-up-1 large-up-3" id="aircraft">
+      {% for aircraft in aircraft_pages %}
+
+        <div class="cell">
+          <div class="card card-select" data-cardSelect onclick="window.location='{{ aircraft.url }}';">
+
+            <img class="interchange" alt="{{ aircraft.specific.aircraft_make_model}} - {{ aircraft.specific.aircraft_tail_number }}" {% interchange_tag aircraft.specific.frontpage_image.filename %}>
+            <div class="card-section">
+              <h5>{{ aircraft.specific.aircraft_make_model }} - {{ aircraft.specific.aircraft_tail_number }}</h5>
+              <p>{{ aircraft.specific.frontpage_blurb }}</p>
+            </div>
+            <a href="{{ aircraft.url }}">
+              <button class="button">View Aircraft</button>
+            </a>
+          </div>
+        </div>
+
+      {% endfor %}
+    </div>
+    {% endif %}
+
+
+{% endblock content %}

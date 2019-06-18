@@ -1,0 +1,92 @@
+{% load static wagtailuserbar footer_tags interchange %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+    </title>
+
+    {% with self.get_site.site_name as site_name %}
+    <meta name="description" content="{{ page.description }}" >
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ page.title }} - {{ site_name }}">
+    <meta name="twitter:description" content="{{ page.description }}">
+    <meta name="twitter:image" content="https://capcityflyers.com{% if page.hero_image %}{% interchange_original page.hero_image.filename %}{% else %}{% interchange_original page.header_image.filename %}{% endif %}">
+
+    <meta property="og:title" content="{{ page.title }} - {{ site_name }}" >
+    <meta property="og:type" content="website" >
+    <meta property="og:url" content="https://capcityflyers.com{{ request.path }}" >
+    <meta property="og:image" content="https://capcityflyers.com{% if page.hero_image %}{% interchange_original page.hero_image.filename %}{% else %}{% interchange_original page.header_image.filename %}{% endif %}" >
+    <meta property="og:description" content="{{ page.description }}" >
+    <meta property="og:site_name" content="{{ site_name }}" >
+    {% endwith %}
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:700|Open+Sans|Overpass:600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'foundation-sites/dist/css/foundation.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'foundation-icons/foundation-icons.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/capcityflyers.css' %}" >
+
+    {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+
+    <nav class="top-bar topbar-responsive">
+      <div class="top-bar-title">
+        <span data-responsive-toggle="topbar-responsive" data-hide-for="medium">
+          <button class="menu-icon" type="button" data-toggle></button>
+        </span>
+        <a class="topbar-responsive-logo" href="/"><strong>Capitol City Flyers</strong></a>
+      </div>
+      <div id="topbar-responsive" class="topbar-responsive-links">
+        <div class="top-bar-right">
+          <ul class="menu simple vertical medium-horizontal">
+            <li><a href="/#aircraft">Aircraft</a></li>
+            <li><a href="/membership">Membership</a></li>
+            <li><a href="/#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+{% block content %}
+{% endblock %}
+
+   {% footer_content %}
+
+    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'what-input/dist/what-input.min.js' %}"></script>
+    <script src="{% static 'foundation-sites/dist/js/foundation.min.js' %}"></script>
+    <script src="{% static 'foundation-sites/dist/js/plugins/foundation.util.mediaQuery.min.js' %}"></script>
+    <script src="{% static 'foundation-sites/dist/js/plugins/foundation.interchange.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/capcityflyers.js' %}"></script>
+
+    <script>
+      Foundation.Interchange.SPECIAL_QUERIES['small-retina'] = 'only screen and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)';
+      Foundation.Interchange.SPECIAL_QUERIES['medium-retina'] = 'only screen and (min-width: 1025px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)';
+      Foundation.Interchange.SPECIAL_QUERIES['large-retina'] = 'only screen and (min-width: 1201px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)';
+      Foundation.Interchange.SPECIAL_QUERIES['xlarge-retina'] = 'only screen and (min-width: 1441px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)';
+
+      $(document).foundation();
+    </script>
+
+    {% block extra_js %}
+        {# Override this in templates to add extra javascript #}
+    {% endblock %}
+
+  </body>
+</html>

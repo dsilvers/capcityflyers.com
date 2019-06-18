@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags interchange %}
+
+{% block body_class %}aircraft-page{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+
+    <div class="grid-x grid-padding-y grid-padding-x" style="margin-bottom: -20px;">
+        <div class="cell">
+            <nav aria-label="You are here:" role="navigation">
+              <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#aircraft">Aircraft</a></li>
+                <li class="disabled">{{ page.aircraft_make_model }} - {{ page.aircraft_tail_number }}</li>
+              </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="grid-x grid-padding-x small-up-1">
+        <div class="cell">
+            <div class="card">
+              <img class="interchange" alt="{{ page.aircraft_make_model }} - {{ page.aircraft_tail_number }}" {% interchange_tag page.header_image.filename %}>
+            </div>
+        </div>
+
+        <div class="cell">
+            <h1>{{ page.aircraft_make_model }} - {{ page.aircraft_tail_number }}</h1>
+
+            {% if page.aircraft_description %}
+            <div class="callout">
+                {{ page.aircraft_description|safe }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="grid-x grid-padding-x small-up-1 medium-up-2 large-up-3">
+
+        {% if page.billing_wet_rate or page.billing_dry_rate %}
+        <div class="cell">
+            <div class="card">
+                <div class="card-divider">
+                    <h5>Billing Rate:</h5>
+                </div>
+                <div class="card-section">
+
+                    {% if page.billing_wet_rate %}
+                    <p><strong>Wet Rate:</strong> {{ page.billing_wet_rate }}</p>
+                    {% endif %}
+
+                    {% if page.billing_dry_rate %}
+                    <p><strong>Dry Rate:</strong> {{ page.billing_dry_rate }}</p>
+                    {% endif %}
+
+                    {% if page.billing_last_updated %}
+                    <p><small>Rates last updated on {{ page.billing_last_updated }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if page.pilot_requirements %}
+        <div class="cell">
+            <div class="card">
+                <div class="card-divider">
+                    <h5>Pilot Requirements:</h5>
+                </div>
+                <div class="card-section">
+                    {{ page.pilot_requirements|safe }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if page.documents %}
+        <div class="cell">
+            <div class="card">
+                <div class="card-divider">
+                    <h5>Documents:</h5>
+                </div>
+                <div class="card-section">
+                    <ul>
+                        {% for document in page.documents.all %}
+                            <li><a href="{{ document.document.url }}">{{ document.document.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+    {% if page.aircraft_images %}
+    <div class="grid-x grid-padding-x small-up-1">
+
+        {% for image in page.aircraft_images %}
+          <div class="cell">
+            <div class="card" >
+
+                {% if image.value.title %}
+                <div class="card-divider">
+                    <h5>{{ image.value.title }}</h5>
+                </div>
+                {% endif %}
+
+                <img class="interchange" alt="{{ page.aircraft_make_model }} - {{ page.aircraft_tail_number }}{% if image.value.title %} - {{ image.value.title }}{% else %} ({{ forloop.counter }}){% endif %}" {% interchange_tag image.value.image.filename %}>
+
+                {% if image.value.description %}
+                <div class="card-section">
+                    {{ image.value.description|safe }}
+                </div>
+                {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+
+
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% load wagtailcore_tags %}
+
+    <footer class="marketing-site-footer grid-x grid-padding-x">
+      <div class="cell medium-4">
+
+          <h4 class="marketing-site-footer-name">{{ footer.footer_blurb_header|safe }}</h4>
+          <p>{{ footer.footer_blurb_text|safe }}</p>
+
+          <ul class="menu marketing-site-footer-menu-social simple">
+            {% if footer.youtube_link %}
+            <li><a href="{{ footer.youtube_link }}"><i class="fi-social-youtube" aria-hidden="true"></i></a></li>
+            {% endif %}
+
+            {% if footer.facebook_link %}
+             <li><a href="{{ footer.facebook_link }}"><i class="fi-social-facebook" aria-hidden="true"></i></a></li>
+             {% endif %}
+          </ul>
+        </div>
+        <div class="cell medium-6" id="contact">
+          {% if footer.content_address or footer.contact_phone_number or footer.contact_email %}
+           <h4 class="marketing-site-footer-title">Contact Info</h4>
+          {% endif %}
+
+          {% if footer.contact_email %}
+          <div class="marketing-site-footer-block">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <p><a href="mailto:{{ footer.contact_email }}">{{ footer.contact_email }}</a></p>
+          </div>
+          {% endif %}
+
+           {% if footer.contact_address %}
+          <div class="marketing-site-footer-block">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <p><a href="{{ footer.contact_address_map_link }}" target="_blank">{{ footer.contact_address }}</a></p>
+          </div>
+          {% endif %}
+
+          {% if footer.contact_phone_number %}
+          <div class="marketing-site-footer-block">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <p>{{ footer.contact_phone_number }}</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="cell medium-6 marketing-site-footer-bottom">
+            {% if footer.copyright_text %}<p>{{ footer.copyright_text|safe }}</p>{% endif %}
+      </div>
+      <div class="cell auto marketing-site-footer-bottom">
+        <ul class="menu marketing-site-footer-bottom-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/#aircraft">Aircraft</a></li>
+          <li><a href="#">Membership</a></li>
+        </ul>
+      </div>
+
+    </footer>

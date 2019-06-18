@@ -18,9 +18,9 @@ from wagtail.images.blocks import ImageChooserBlock
 class AircraftImageBlock(blocks.StreamBlock):
     carousel = blocks.StructBlock([
         (('image'), ImageChooserBlock()),
-        (('title'), blocks.CharBlock(max_length=120, blank=True, null=True, default='')),
-        (('description'), blocks.RichTextBlock(blank=True, null=True, default='')),
-    ], blank=True, null=True)
+        (('title'), blocks.CharBlock(max_length=120, blank=True, null=True, default='', required=False)),
+        (('description'), blocks.RichTextBlock(blank=True, null=True, default='', required=False)),
+    ], blank=True, null=True, required=False)
 
 
 class AircraftPage(Page):

@@ -40,7 +40,7 @@ class AircraftPage(Page):
 
     billing_wet_rate = models.CharField(max_length=200, blank=True)
     billing_dry_rate = models.CharField(max_length=200, blank=True)
-    billing_last_updated = models.DateField(blank=True)
+    billing_last_updated = models.DateField(blank=True, null=True)
 
     pilot_requirements = RichTextField(blank=True)
 
